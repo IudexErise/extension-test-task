@@ -8,3 +8,13 @@
 body {
   background: #0f172a;
 }
+
+button:hover {
+  cursor: pointer;
+}
+
+textarea:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
