@@ -3,11 +3,22 @@ import "./TabSwitcher.css";
 import { useState } from "react";
 import BookmarkSvg from "@/src/svg/bookmark";
 import CopySvg from "@/src/svg/copy";
+import { useImprove } from "@/src/hooks/useImprove";
 
 function TabSwitcher() {
   const [activeTab, setActiveTab] = useState<"improve" | "library">("improve");
   const [originalPrompt, setOriginalPrompt] = useState<string>("");
   const [improvedPrompt, setImprovedPrompt] = useState<string>("");
+
+  const { improve, loading, error } = useImprove();
+
+  const handleImprove = async () => {
+    if (!originalPrompt.trim()) return;
+    try {
+      const res = await improve(originalPrompt);
+      setImprovedPrompt(res.improved_text);
+    } catch (e) {}
+  };
 
   return (
     <div className="tabsContainer">
@@ -40,14 +51,11 @@ function TabSwitcher() {
             className="textarea"
             value={originalPrompt}
             onChange={(e) => setOriginalPrompt(e.target.value)}
+            disabled={loading}
           />
-          <button
-            className="buttonImprove"
-            onClick={() =>
-              setImprovedPrompt("Imoproved prompt: " + originalPrompt)
-            }
-          >
-            Improve
+          {error && <div>{error}</div>}
+          <button className="buttonImprove" onClick={handleImprove}>
+            {loading ? "Improving..." : "Improve"}
           </button>
           <h2 className="h2">Improved prompt</h2>
           <textarea

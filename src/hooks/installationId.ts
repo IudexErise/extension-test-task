@@ -1,12 +1,10 @@
-export async function getInstallationId(): Promise<string> {
-  const { installation_id } = (await browser.storage.local.get(
-    "installation_id",
-  )) as { installation_id?: string };
+export function getInstallationId(): string {
+  const existing = localStorage.getItem("installation_id");
 
-  if (installation_id) return installation_id;
+  if (existing) return existing;
 
   const id = crypto.randomUUID();
-  await browser.storage.local.set({ installation_id: id });
+  localStorage.setItem("installation_id", id);
 
   return id;
 }
