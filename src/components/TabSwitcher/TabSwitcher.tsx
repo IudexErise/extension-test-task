@@ -1,11 +1,17 @@
 import WandSvg from "@/src/svg/wand";
 import "./TabSwitcher.css";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import BookmarkSvg from "@/src/svg/bookmark";
 import CopySvg from "@/src/svg/copy";
 import { useImprove } from "@/src/hooks/useImprove";
+import { Limits } from "@/src/types/types";
 
-function TabSwitcher() {
+type Props = {
+  limits: Limits | null;
+  setLimits: Dispatch<React.SetStateAction<Limits | null>>;
+};
+
+function TabSwitcher({ limits, setLimits }: Props) {
   const [activeTab, setActiveTab] = useState<"improve" | "library">("improve");
   const [originalPrompt, setOriginalPrompt] = useState<string>("");
   const [improvedPrompt, setImprovedPrompt] = useState<string>("");
@@ -17,6 +23,7 @@ function TabSwitcher() {
     try {
       const res = await improve(originalPrompt);
       setImprovedPrompt(res.improved_text);
+      setLimits(res.rate_limit);
     } catch (e) {}
   };
 
