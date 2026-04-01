@@ -1,6 +1,6 @@
 .app {
   width: 380px;
-  max-height: 5400px;
+  max-height: 540px;
   display: flex;
   flex-direction: column;
   background: rgba(255, 255, 255, 0.15);

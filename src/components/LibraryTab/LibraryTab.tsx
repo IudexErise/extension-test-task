@@ -69,7 +69,7 @@ function LibraryTab() {
         ))}
       </div>
       <div className="size">
-        {prompts.length} prompts | {size} byes
+        {prompts.length} prompts | {size} bytes
       </div>
     </div>
   );
