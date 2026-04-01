@@ -2,30 +2,16 @@ import WandSvg from "@/src/svg/wand";
 import "./TabSwitcher.css";
 import { Dispatch, useState } from "react";
 import BookmarkSvg from "@/src/svg/bookmark";
-import CopySvg from "@/src/svg/copy";
-import { useImprove } from "@/src/hooks/useImprove";
 import { Limits } from "@/src/types/types";
+import ImproveTab from "../ImproveTab/ImproveTab";
+import LibraryTab from "../LibraryTab/LibraryTab";
 
 type Props = {
-  limits: Limits | null;
   setLimits: Dispatch<React.SetStateAction<Limits | null>>;
 };
 
-function TabSwitcher({ limits, setLimits }: Props) {
+function TabSwitcher({ setLimits }: Props) {
   const [activeTab, setActiveTab] = useState<"improve" | "library">("improve");
-  const [originalPrompt, setOriginalPrompt] = useState<string>("");
-  const [improvedPrompt, setImprovedPrompt] = useState<string>("");
-
-  const { improve, loading, error } = useImprove();
-
-  const handleImprove = async () => {
-    if (!originalPrompt.trim()) return;
-    try {
-      const res = await improve(originalPrompt);
-      setImprovedPrompt(res.improved_text);
-      setLimits(res.rate_limit);
-    } catch (e) {}
-  };
 
   return (
     <div className="tabsContainer">
@@ -51,52 +37,8 @@ function TabSwitcher({ limits, setLimits }: Props) {
           Library
         </div>
       </nav>
-      {activeTab === "improve" && (
-        <div className="promptSection">
-          <h2 className="h2">Original prompt</h2>
-          <textarea
-            className="textarea"
-            value={originalPrompt}
-            onChange={(e) => setOriginalPrompt(e.target.value)}
-            disabled={loading}
-          />
-          {error && <div>{error}</div>}
-          <button className="buttonImprove" onClick={handleImprove}>
-            {loading ? "Improving..." : "Improve"}
-          </button>
-          <h2 className="h2">Improved prompt</h2>
-          <textarea
-            className="textareaImproved"
-            readOnly
-            value={improvedPrompt}
-          />
-          <div className="improvedButtons">
-            <button
-              className="buttonImproved"
-              onClick={() => navigator.clipboard.writeText(improvedPrompt)}
-            >
-              <CopySvg size="15px" color="#808080" />
-              Copy
-            </button>
-            <button className="buttonImproved">
-              <BookmarkSvg size="15px" color="#808080" />
-              Save to library
-            </button>
-          </div>
-        </div>
-      )}
-      {activeTab === "library" && (
-        <div>
-          <div>search</div>
-          <div>
-            <button>ChatGPT</button>
-            <button>Claude</button>
-            <button>Perplexity</button>
-            <button>Groq</button>
-            <button>Deepseek</button>
-          </div>
-        </div>
-      )}
+      {activeTab === "improve" && <ImproveTab setLimits={setLimits} />}
+      {activeTab === "library" && <LibraryTab />}
     </div>
   );
 }

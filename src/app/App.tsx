@@ -24,7 +24,7 @@ function App() {
         <AttemptsCounter limits={limits} />
       </section>
       <section>
-        <TabSwitcher limits={limits} setLimits={setLimits} />
+        <TabSwitcher setLimits={setLimits} />
       </section>
       <section className="modelsSection">
         <div className="openPaste">
