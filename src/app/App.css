@@ -1,5 +1,6 @@
 .app {
   width: 380px;
+  max-height: 540px;
   background: #0f172a;
   display: flex;
   flex-direction: column;
@@ -26,44 +27,4 @@
 
 .promptSection {
   padding: 10px;
-}
-
-.modelsSection {
-  display: flex;
-  flex-direction: column;
-  padding: 0 10px;
-}
-
-.openPaste {
-  font-size: 12px;
-  color: #808080;
-  display: flex;
-  align-items: center;
-}
-
-.openPaste span {
-  padding: 0 5px;
-}
-
-.openPaste::before,
-.openPaste::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: #808080;
-}
-
-.models {
-  display: flex;
-  justify-content: space-between;
-  margin: 10px 0;
-}
-
-.models button {
-  background: transparent;
-}
-
-.footer {
-  align-self: center;
-  padding-bottom: 10px;
 }

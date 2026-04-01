@@ -1,5 +1,5 @@
-let perMinuteRemaining = 10;
-let perDayRemaining = 50;
+let perMinuteRemaining = 0;
+let perDayRemaining = 0;
 
 export async function apiFetch<T>(
   url: string,
@@ -13,13 +13,13 @@ export async function apiFetch<T>(
     throw new Error("Text is required");
   }
 
-  if (perMinuteRemaining <= 0 || perDayRemaining <= 0) {
+  if (perMinuteRemaining >= 10 || perDayRemaining >= 50) {
     throw new Error("Rate limit exceeded");
   }
 
   if (url.includes("/v1/improve")) {
-    perMinuteRemaining--;
-    perDayRemaining--;
+    perMinuteRemaining++;
+    perDayRemaining++;
 
     return {
       request_id: crypto.randomUUID(),

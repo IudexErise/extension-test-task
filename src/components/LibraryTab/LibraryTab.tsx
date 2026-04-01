@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { PromptItem } from "@/src/types/types";
 import "./LibraryTab.css";
 import { deletePromptLocal, getPromptsLocal } from "@/src/hooks/library";
+import CopySvg from "@/src/svg/copy";
+import ShareSvg from "@/src/svg/share";
+import DeleteSvg from "@/src/svg/delete";
 
 function LibraryTab() {
   const [prompts, setPrompts] = useState<PromptItem[]>([]);
@@ -24,24 +27,41 @@ function LibraryTab() {
   );
 
   return (
-    <div>
+    <div className="libraryContainer">
       <input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search prompts..."
+        className="search"
       />
       <div>
-        {filtered.map((p) => (
-          <div key={p.id} className="card">
-            <div>
-              <b>Original:</b> {p.original_text}
+        {filtered.map((item) => (
+          <div key={item.id} className="card">
+            <div className="modelDate">
+              <span>ChatGPT</span>
+              <span>{item.created_at}</span>
             </div>
-
-            <div>
-              <b>Improved:</b> {p.improved_text}
+            <p className="original">Original: {item.original_text}</p>
+            <div className="improvedContainer">
+              <span className="improved">Improved:</span>
+              <p className="improvedText">{item.improved_text}</p>
             </div>
-
-            <button onClick={() => handleDelete(p.id)}>Delete</button>
+            <div className="buttons">
+              <button
+                onClick={() =>
+                  navigator.clipboard.writeText(item.improved_text)
+                }
+                className="button"
+              >
+                <CopySvg size={15} color="#808080" />
+              </button>
+              <button className="button">
+                <ShareSvg size={15} color="#808080" />
+              </button>
+              <button onClick={() => handleDelete(item.id)} className="button">
+                <DeleteSvg size={15} color="#ff0000" />
+              </button>
+            </div>
           </div>
         ))}
       </div>

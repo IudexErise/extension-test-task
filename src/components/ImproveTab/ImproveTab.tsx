@@ -83,6 +83,19 @@ function ImproveTab({ setLimits }: Props) {
           Save to library
         </button>
       </div>
+      <section className="modelsSection">
+        <div className="openPaste">
+          <span>Open & Paste</span>
+        </div>
+        <div className="models">
+          <button>ChatGPT</button>
+          <button>Claude</button>
+          <button>Perplexity</button>
+          <button>Groq</button>
+          <button>Deepseek</button>
+        </div>
+        <span className="footer">Powered by AI v1.2.0</span>
+      </section>
     </div>
   );
 }
