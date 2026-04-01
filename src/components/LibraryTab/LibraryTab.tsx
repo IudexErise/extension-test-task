@@ -5,6 +5,7 @@ import { deletePromptLocal, getPromptsLocal } from "@/src/hooks/library";
 import CopySvg from "@/src/svg/copy";
 import ShareSvg from "@/src/svg/share";
 import DeleteSvg from "@/src/svg/delete";
+import { storage } from "#imports";
 
 function LibraryTab() {
   const [prompts, setPrompts] = useState<PromptItem[]>([]);
@@ -25,6 +26,8 @@ function LibraryTab() {
       p.original_text.toLowerCase().includes(search.toLowerCase()) ||
       p.improved_text.toLowerCase().includes(search.toLowerCase()),
   );
+
+  let size = new Blob([JSON.stringify(storage.getItem("local:prompts"))]).size;
 
   return (
     <div className="libraryContainer">
@@ -64,6 +67,9 @@ function LibraryTab() {
             </div>
           </div>
         ))}
+      </div>
+      <div className="size">
+        {prompts.length} prompts | {size} byes
       </div>
     </div>
   );

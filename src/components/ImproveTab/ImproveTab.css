@@ -5,25 +5,47 @@
 }
 
 .textarea {
-  width: 100%;
+  width: calc(100% - 20px);
   resize: none;
   margin-bottom: 5px;
   height: 100px;
-  background: transparent;
+  background-color: rgb(40, 40, 40);
+  border-radius: 10px;
+  padding: 10px;
 }
 
 .buttonImprove {
   width: 100%;
   height: 25px;
-  background-color: purple;
+  background: linear-gradient(90deg, #7a3cff 0%, #5a6cff 50%, #4aa3ff 100%);
   border-radius: 5px;
+  margin: 10px 0;
+}
+
+.buttonImprove:disabled {
+  opacity: 30%;
 }
 
 .textareaImproved {
-  width: 100%;
+  width: calc(100% - 20px);
   resize: none;
-  margin-bottom: 5px;
-  background: transparent;
+  margin-bottom: 10px;
+  height: 100px;
+  background-color: rgb(40, 40, 40);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.textareaImprovedSucess {
+  width: calc(100% - 20px);
+  resize: none;
+  margin-bottom: 10px;
+  height: 100px;
+  background-color: rgb(40, 40, 40);
+  border-radius: 10px;
+  padding: 10px;
+  border: 1px solid green;
+  border-left: 4px solid green;
 }
 
 .improvedButtons {
@@ -41,6 +63,10 @@
   gap: 5px;
   align-items: center;
   justify-content: center;
+}
+
+.buttonImproved:disabled {
+  opacity: 30%;
 }
 
 .modelsSection {

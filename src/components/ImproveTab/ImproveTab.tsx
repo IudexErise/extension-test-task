@@ -27,6 +27,7 @@ function ImproveTab({ setLimits }: Props) {
     } catch (e) {
       alert((e as Error).message);
     }
+    setOriginalPrompt("");
   };
 
   const handleSave = async () => {
@@ -59,6 +60,7 @@ function ImproveTab({ setLimits }: Props) {
         value={originalPrompt}
         onChange={(e) => setOriginalPrompt(e.target.value)}
         disabled={loading}
+        placeholder="Type or paste your prompt here..."
       />
       {error && <div>{error}</div>}
       <button
@@ -69,16 +71,27 @@ function ImproveTab({ setLimits }: Props) {
         {loading ? "Improving..." : "Improve"}
       </button>
       <h2 className="h2">Improved prompt</h2>
-      <textarea className="textareaImproved" readOnly value={improvedPrompt} />
+      <textarea
+        className={
+          improvedPrompt === "" ? "textareaImproved" : "textareaImprovedSucess"
+        }
+        readOnly
+        value={improvedPrompt}
+      />
       <div className="improvedButtons">
         <button
           className="buttonImproved"
           onClick={() => navigator.clipboard.writeText(improvedPrompt)}
+          disabled={improvedPrompt === ""}
         >
           <CopySvg size="15px" color="#808080" />
           Copy
         </button>
-        <button className="buttonImproved" onClick={handleSave}>
+        <button
+          className="buttonImproved"
+          onClick={handleSave}
+          disabled={improvedPrompt === ""}
+        >
           <BookmarkSvg size="15px" color="#808080" />
           Save to library
         </button>
