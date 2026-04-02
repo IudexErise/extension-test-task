@@ -1,3 +1,19 @@
-# WXT + React
+**Install:**
 
-This template should help get you started developing with React in WXT.
+npm install
+<hr />
+
+**Lauch:**
+
+npm run dev
+<hr />
+
+**Build:**
+
+npm run build
+<hr />
+
+**Get extension zip:**
+
+npm run zip
+<hr />
